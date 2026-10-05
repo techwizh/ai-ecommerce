@@ -4,19 +4,20 @@ import { useColorScheme } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
+import { CartProvider } from '@/context/CartContext';
 
 SplashScreen.preventAutoHideAsync();
 
 function RootNavigator() {
   const { user, loading } = useAuth();
 
-  // Wait until we know whether a saved session exists
   if (loading) return null;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Protected guard={!!user}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="product/[id]" />
       </Stack.Protected>
       <Stack.Protected guard={!user}>
         <Stack.Screen name="login" />
@@ -30,10 +31,12 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   return (
     <AuthProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <AnimatedSplashOverlay />
-        <RootNavigator />
-      </ThemeProvider>
+      <CartProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <AnimatedSplashOverlay />
+          <RootNavigator />
+        </ThemeProvider>
+      </CartProvider>
     </AuthProvider>
   );
 }

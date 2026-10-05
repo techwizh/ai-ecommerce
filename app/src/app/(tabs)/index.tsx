@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -27,6 +28,7 @@ const getColumns = (width: number) => {
 export default function HomeScreen() {
   const { user, logout } = useAuth();
   const { width } = useWindowDimensions();
+  const router = useRouter();
   const columns = getColumns(width);
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -85,7 +87,7 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.hello}>Hi, {user?.name?.split(" ")[0]} </Text>
+            <Text style={styles.hello}>Hi, {user?.name?.split(" ")[0]}</Text>
             <Text style={styles.sub}>Find something you love</Text>
           </View>
           <Pressable style={styles.logout} onPress={logout}>
@@ -137,7 +139,15 @@ export default function HomeScreen() {
             contentContainerStyle={styles.list}
             renderItem={({ item }) => (
               <View style={{ width: `${100 / columns}%`, padding: 6 }}>
-                <ProductCard product={item} />
+                <ProductCard
+                  product={item}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/product/[id]",
+                      params: { id: item._id },
+                    })
+                  }
+                />
               </View>
             )}
           />

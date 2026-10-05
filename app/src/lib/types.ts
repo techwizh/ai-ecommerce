@@ -10,3 +10,9 @@ export type Product = {
   numReviews: number;
   stock: number;
 };
+
+export type CartItem = {
+  product: Product;
+  quantity: number;
+  subtotal: number;
+};
