@@ -21,6 +21,8 @@ app.use("/api/products", require("./routes/productRoutes"));
 
 app.use("/api/cart", require("./routes/cartRoutes"));
 
+app.use("/api/wishlist", require("./routes/wishlistRoutes"));
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
