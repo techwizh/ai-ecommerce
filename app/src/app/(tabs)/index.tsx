@@ -7,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
   useWindowDimensions,
 } from "react-native";
@@ -26,7 +25,7 @@ const getColumns = (width: number) => {
 };
 
 export default function HomeScreen() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { width } = useWindowDimensions();
   const router = useRouter();
   const columns = getColumns(width);
@@ -34,12 +33,9 @@ export default function HomeScreen() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState("");
-  const [query, setQuery] = useState("");
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Load the category chips once
   useEffect(() => {
     api
       .get("/products/categories")
@@ -47,13 +43,6 @@ export default function HomeScreen() {
       .catch(() => {});
   }, []);
 
-  // Wait until the user stops typing before searching
-  useEffect(() => {
-    const t = setTimeout(() => setSearch(query.trim()), 400);
-    return () => clearTimeout(t);
-  }, [query]);
-
-  // Load products whenever the search or category changes
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -61,11 +50,7 @@ export default function HomeScreen() {
 
     api
       .get("/products", {
-        params: {
-          search: search || undefined,
-          category: category || undefined,
-          limit: 50,
-        },
+        params: { category: category || undefined, limit: 50 },
       })
       .then(({ data }) => {
         if (!cancelled) setProducts(data.products);
@@ -80,28 +65,15 @@ export default function HomeScreen() {
     return () => {
       cancelled = true;
     };
-  }, [search, category]);
+  }, [category]);
 
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <View>
-            <Text style={styles.hello}>Hi, {user?.name?.split(" ")[0]}</Text>
-            <Text style={styles.sub}>Find something you love</Text>
-          </View>
-          <Pressable style={styles.logout} onPress={logout}>
-            <Text style={styles.logoutText}>Log out</Text>
-          </Pressable>
+          <Text style={styles.hello}>Hi, {user?.name?.split(" ")[0]}</Text>
+          <Text style={styles.sub}>Find something you love</Text>
         </View>
-
-        <TextInput
-          style={styles.search}
-          placeholder="Search products..."
-          placeholderTextColor="#8b8f98"
-          value={query}
-          onChangeText={setQuery}
-        />
 
         <ScrollView
           horizontal
@@ -166,33 +138,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 14,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 14,
-  },
+  header: { paddingVertical: 14 },
   hello: { color: "#fff", fontSize: 22, fontWeight: "700" },
   sub: { color: "#9aa0ab", fontSize: 14, marginTop: 2 },
-  logout: {
-    borderColor: "#2a2f3a",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  logoutText: { color: "#fff", fontSize: 14 },
-  search: {
-    backgroundColor: "#171a21",
-    borderColor: "#2a2f3a",
-    borderWidth: 1,
-    borderRadius: 12,
-    color: "#fff",
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 16,
-  },
-  chipsScroll: { flexGrow: 0, flexShrink: 0, height: 44, marginVertical: 12 },
+  chipsScroll: { flexGrow: 0, flexShrink: 0, height: 44, marginBottom: 12 },
   chips: { gap: 8 },
   chip: {
     backgroundColor: "#171a21",
