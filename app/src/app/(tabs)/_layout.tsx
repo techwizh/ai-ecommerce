@@ -19,6 +19,7 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="index" options={{ title: "Home" }} />
       <Tabs.Screen name="search" options={{ title: "Search" }} />
+      <Tabs.Screen name="wishlist" options={{ title: "Wishlist" }} />
       <Tabs.Screen
         name="cart"
         options={{ title: "Cart", tabBarBadge: count > 0 ? count : undefined }}

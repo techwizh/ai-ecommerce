@@ -5,6 +5,7 @@ import { useColorScheme } from 'react-native';
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
+import { WishlistProvider } from '@/context/WishlistContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,10 +33,12 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <CartProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <AnimatedSplashOverlay />
-          <RootNavigator />
-        </ThemeProvider>
+        <WishlistProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <AnimatedSplashOverlay />
+            <RootNavigator />
+          </ThemeProvider>
+        </WishlistProvider>
       </CartProvider>
     </AuthProvider>
   );
