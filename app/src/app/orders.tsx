@@ -96,16 +96,34 @@ export default function OrdersScreen() {
                   </Text>
                 ))}
 
-                <View style={styles.cardFooter}>
+                              <View style={styles.cardFooter}>
                   <Text
                     style={
                       item.paymentStatus === "paid" ? styles.paid : styles.unpaid
                     }
                   >
-                    {item.paymentStatus === "paid" ? "Paid" : "Payment pending"}
+                    {item.paymentStatus === "paid"
+                      ? "Paid"
+                      : item.paymentStatus === "failed"
+                      ? "Payment failed"
+                      : "Payment pending"}
                   </Text>
                   <Text style={styles.total}>${item.total.toFixed(2)}</Text>
                 </View>
+
+                {item.paymentStatus !== "paid" && item.status !== "cancelled" && (
+                  <Pressable
+                    style={styles.payButton}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pay/[id]",
+                        params: { id: item._id },
+                      })
+                    }
+                  >
+                    <Text style={styles.payButtonText}>Pay now</Text>
+                  </Pressable>
+                )}
               </View>
             )}
           />
@@ -157,4 +175,13 @@ const styles = StyleSheet.create({
   paid: { color: "#4ade80", fontSize: 14 },
   unpaid: { color: "#fbbf24", fontSize: 14 },
   total: { color: "#fff", fontSize: 18, fontWeight: "700" },
+
+    payButton: {
+    backgroundColor: "#3b82f6",
+    borderRadius: 10,
+    paddingVertical: 11,
+    alignItems: "center",
+    marginTop: 4,
+  },
+  payButtonText: { color: "#fff", fontSize: 15, fontWeight: "600" },
 });

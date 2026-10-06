@@ -35,11 +35,11 @@ export default function CheckoutScreen() {
 
     setSubmitting(true);
     try {
-      await api.post("/orders", {
+           const { data } = await api.post("/orders", {
         shippingAddress: { fullName, address, city, phone },
       });
       await refresh(); // the server emptied the cart
-      router.replace("/orders");
+      router.replace({ pathname: "/pay/[id]", params: { id: data.order._id } });
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {

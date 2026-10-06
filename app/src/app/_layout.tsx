@@ -21,6 +21,7 @@ function RootNavigator() {
         <Stack.Screen name="product/[id]" />
         <Stack.Screen name="checkout" />
         <Stack.Screen name="orders" />
+        <Stack.Screen name="pay/[id]" />
       </Stack.Protected>
       <Stack.Protected guard={!user}>
         <Stack.Screen name="login" />
