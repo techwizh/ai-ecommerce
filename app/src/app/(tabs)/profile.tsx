@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function ProfileScreen() {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -18,6 +20,10 @@ export default function ProfileScreen() {
           <Text style={[styles.label, { marginTop: 14 }]}>Email</Text>
           <Text style={styles.value}>{user?.email}</Text>
         </View>
+
+        <Pressable style={styles.orders} onPress={() => router.push("/orders")}>
+          <Text style={styles.ordersText}>My orders</Text>
+        </Pressable>
 
         <Pressable style={styles.logout} onPress={logout}>
           <Text style={styles.logoutText}>Log out</Text>
@@ -40,13 +46,21 @@ const styles = StyleSheet.create({
   card: { backgroundColor: "#171a21", borderRadius: 16, padding: 18 },
   label: { color: "#9aa0ab", fontSize: 13 },
   value: { color: "#fff", fontSize: 17, marginTop: 2 },
+  orders: {
+    backgroundColor: "#171a21",
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  ordersText: { color: "#fff", fontSize: 16, fontWeight: "600" },
   logout: {
     borderColor: "#ff6b6b",
     borderWidth: 1,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 12,
   },
   logoutText: { color: "#ff6b6b", fontSize: 16, fontWeight: "600" },
 });

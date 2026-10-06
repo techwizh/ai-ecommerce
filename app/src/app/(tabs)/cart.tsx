@@ -71,8 +71,16 @@ export default function CartScreen() {
             />
 
             <View style={styles.footer}>
-              <Text style={styles.totalLabel}>Total</Text>
-              <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+              <View style={styles.totalRow}>
+                <Text style={styles.totalLabel}>Total</Text>
+                <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+              </View>
+              <Pressable
+                style={styles.checkout}
+                onPress={() => router.push("/checkout")}
+              >
+                <Text style={styles.checkoutText}>Checkout</Text>
+              </Pressable>
             </View>
           </>
         )}
@@ -119,13 +127,23 @@ const styles = StyleSheet.create({
   remove: { color: "#ff6b6b", fontSize: 13, marginLeft: 6 },
   subtotal: { color: "#60a5fa", fontSize: 16, fontWeight: "700" },
   footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 16,
+    paddingVertical: 14,
+    gap: 12,
     borderTopColor: "#2a2f3a",
     borderTopWidth: 1,
   },
+  totalRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   totalLabel: { color: "#9aa0ab", fontSize: 16 },
   totalValue: { color: "#fff", fontSize: 24, fontWeight: "700" },
+  checkout: {
+    backgroundColor: "#3b82f6",
+    borderRadius: 12,
+    paddingVertical: 15,
+    alignItems: "center",
+  },
+  checkoutText: { color: "#fff", fontSize: 16, fontWeight: "600" },
 });
