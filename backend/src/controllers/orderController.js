@@ -80,3 +80,58 @@ exports.getOrderById = async (req, res) => {
   if (!order) return res.status(404).json({ message: "Order not found" });
   res.json({ order });
 };
+
+// POST /api/orders/:id/pay   body: { cardNumber, expiry, cvc }
+// DEMO ONLY: no real payment is made and card details are never stored
+exports.payOrder = async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: "Invalid order id" });
+  }
+
+  const order = await Order.findOne({ _id: req.params.id, user: req.user._id });
+  if (!order) return res.status(404).json({ message: "Order not found" });
+  if (order.paymentStatus === "paid") {
+    return res.status(400).json({ message: "Order is already paid" });
+  }
+  if (order.status === "cancelled") {
+    return res.status(400).json({ message: "This order was cancelled" });
+  }
+
+  const { cardNumber, expiry, cvc } = req.body;
+  const digits = String(cardNumber || "").replace(/\s+/g, "");
+
+  if (!/^\d{16}$/.test(digits)) {
+    return res.status(400).json({ message: "Enter a valid 16-digit card number" });
+  }
+
+  const match = /^(0[1-9]|1[0-2])\/(\d{2})$/.exec(String(expiry || "").trim());
+  if (!match) {
+    return res.status(400).json({ message: "Enter the expiry as MM/YY" });
+  }
+  const month = Number(match[1]);
+  const year = 2000 + Number(match[2]);
+  const now = new Date();
+  if (
+    year < now.getFullYear() ||
+    (year === now.getFullYear() && month < now.getMonth() + 1)
+  ) {
+    return res.status(400).json({ message: "This card has expired" });
+  }
+
+  if (!/^\d{3,4}$/.test(String(cvc || ""))) {
+    return res.status(400).json({ message: "Enter a valid CVC" });
+  }
+
+  // Demo rule: this test card is always declined
+  if (digits === "4000000000000002") {
+    order.paymentStatus = "failed";
+    await order.save();
+    return res.status(402).json({ message: "Card declined (demo card)" });
+  }
+
+  order.paymentStatus = "paid";
+  order.paidAt = new Date();
+  await order.save();
+
+  res.json({ order });
+};
