@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import api, { getErrorMessage } from "@/lib/api";
 import type { Order } from "@/lib/types";
+import { formatPrice } from "@/lib/format";
 
 export default function PayScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -82,7 +83,7 @@ export default function PayScreen() {
             <Text style={styles.doneIcon}>✓</Text>
             <Text style={styles.doneTitle}>Payment successful</Text>
             <Text style={styles.doneText}>
-              Order #{order._id.slice(-6).toUpperCase()} · ${order.total.toFixed(2)}
+              Order #{order._id.slice(-6).toUpperCase()} · {formatPrice(order.total)}
             </Text>
             <Pressable style={styles.button} onPress={goOrders}>
               <Text style={styles.buttonText}>View my orders</Text>
@@ -107,7 +108,7 @@ export default function PayScreen() {
               <Text style={styles.summaryText}>
                 Order #{order._id.slice(-6).toUpperCase()}
               </Text>
-              <Text style={styles.summaryTotal}>${order.total.toFixed(2)}</Text>
+              <Text style={styles.summaryTotal}>{formatPrice(order.total)}</Text>
             </View>
 
             {order.paymentStatus === "failed" && (
@@ -156,7 +157,7 @@ export default function PayScreen() {
                 <ActivityIndicator color="#fff" />
               ) : (
                 <Text style={styles.buttonText}>
-                  Pay ${order.total.toFixed(2)}
+                  Pay {formatPrice(order.total)}
                 </Text>
               )}
             </Pressable>

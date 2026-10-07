@@ -4,6 +4,7 @@ import { FlatList, Image, Pressable, StyleSheet, Text, View } from "react-native
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useCart } from "@/context/CartContext";
+import { formatPrice } from "@/lib/format";
 
 export default function CartScreen() {
   const { items, total, count, updateQuantity, removeItem } = useCart();
@@ -39,7 +40,7 @@ export default function CartScreen() {
                     <Text style={styles.name} numberOfLines={2}>
                       {item.product.name}
                     </Text>
-                    <Text style={styles.price}>${item.product.price.toFixed(2)}</Text>
+                    <Text style={styles.price}>{formatPrice(item.product.price)}</Text>
 
                     <View style={styles.qtyRow}>
                       <Pressable
@@ -65,7 +66,7 @@ export default function CartScreen() {
                     </View>
                   </View>
 
-                  <Text style={styles.subtotal}>${item.subtotal.toFixed(2)}</Text>
+                  <Text style={styles.subtotal}>{formatPrice(item.subtotal)}</Text>
                 </View>
               )}
             />
@@ -73,7 +74,7 @@ export default function CartScreen() {
             <View style={styles.footer}>
               <View style={styles.totalRow}>
                 <Text style={styles.totalLabel}>Total</Text>
-                <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+                <Text style={styles.totalValue}>{formatPrice(total)}</Text>
               </View>
               <Pressable
                 style={styles.checkout}

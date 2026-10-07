@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useWishlist } from "@/context/WishlistContext";
+import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
 type Props = { product: Product; onPress?: () => void };
@@ -32,7 +33,7 @@ export default function ProductCard({ product, onPress }: Props) {
           {product.name}
         </Text>
         <View style={styles.row}>
-          <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+          <Text style={styles.price}>{formatPrice(product.price)}</Text>
           <Text style={styles.rating}>★ {product.rating.toFixed(1)}</Text>
         </View>
         {product.stock === 0 && <Text style={styles.out}>Out of stock</Text>}

@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useCart } from "@/context/CartContext";
 import api, { getErrorMessage } from "@/lib/api";
 import type { Product } from "@/lib/types";
+import { formatPrice } from "@/lib/format";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -77,7 +78,7 @@ export default function ProductDetailScreen() {
             <Text style={styles.name}>{product.name}</Text>
 
             <View style={styles.row}>
-              <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+              <Text style={styles.price}>{formatPrice(product.price)}</Text>
               <Text style={styles.rating}>
                 ★ {product.rating.toFixed(1)} ({product.numReviews})
               </Text>

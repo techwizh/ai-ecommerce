@@ -28,7 +28,9 @@ const run = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     await Product.deleteMany();
-    const created = await Product.insertMany(products);
+    const created = await Product.insertMany(
+  products.map((p) => ({ ...p, price: Math.round(p.price * 13) * 10 }))
+);
     console.log(`Seeded ${created.length} products`);
   } catch (err) {
     console.error("Seed error:", err.message);

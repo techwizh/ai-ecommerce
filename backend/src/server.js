@@ -25,6 +25,8 @@ app.use("/api/wishlist", require("./routes/wishlistRoutes"));
 
 app.use("/api/orders", require("./routes/orderRoutes"));
 
+app.use("/api/recommendations", require("./routes/recommendationRoutes"));
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {

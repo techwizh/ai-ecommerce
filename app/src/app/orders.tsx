@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import api, { getErrorMessage } from "@/lib/api";
 import type { Order } from "@/lib/types";
+import { formatPrice } from "@/lib/format";
 
 const STATUS_COLORS: Record<string, string> = {
   processing: "#fbbf24",
@@ -108,7 +109,7 @@ export default function OrdersScreen() {
                       ? "Payment failed"
                       : "Payment pending"}
                   </Text>
-                  <Text style={styles.total}>${item.total.toFixed(2)}</Text>
+                  <Text style={styles.total}>{formatPrice(item.total)}</Text>
                 </View>
 
                 {item.paymentStatus !== "paid" && item.status !== "cancelled" && (

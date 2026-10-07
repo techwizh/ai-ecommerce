@@ -14,6 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useCart } from "@/context/CartContext";
 import api, { getErrorMessage } from "@/lib/api";
 
+import { formatPrice } from "@/lib/format";
+
 export default function CheckoutScreen() {
   const router = useRouter();
   const { items, total, count, refresh } = useCart();
@@ -66,7 +68,7 @@ export default function CheckoutScreen() {
             <Text style={styles.summaryText}>
               {count} item{count === 1 ? "" : "s"}
             </Text>
-            <Text style={styles.summaryTotal}>${total.toFixed(2)}</Text>
+            <Text style={styles.summaryTotal}>{formatPrice(total)}</Text>
           </View>
 
           <Text style={styles.section}>Shipping address</Text>
