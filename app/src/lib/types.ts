@@ -39,3 +39,10 @@ export type Order = {
   status: "processing" | "shipped" | "delivered" | "cancelled";
   createdAt: string;
 };
+
+export type ChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  text: string;
+  products?: Product[];
+};

@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
 // Only needed when testing on a real phone (see the note below)
-const LAN_IP = "192.168.1.100";
+const LAN_IP = "192.168.88.10";
 
 export const API_URL =
   Platform.OS === "web"

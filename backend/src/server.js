@@ -27,6 +27,10 @@ app.use("/api/orders", require("./routes/orderRoutes"));
 
 app.use("/api/recommendations", require("./routes/recommendationRoutes"));
 
+app.use("/api/insights", require("./routes/insightsRoutes"));
+
+app.use("/api/assistant", require("./routes/assistantRoutes"));
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {

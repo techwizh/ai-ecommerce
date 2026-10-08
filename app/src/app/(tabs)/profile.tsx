@@ -21,8 +21,12 @@ export default function ProfileScreen() {
           <Text style={styles.value}>{user?.email}</Text>
         </View>
 
-        <Pressable style={styles.orders} onPress={() => router.push("/orders")}>
-          <Text style={styles.ordersText}>My orders</Text>
+        <Pressable style={styles.menu} onPress={() => router.push("/insights")}>
+          <Text style={styles.menuText}>My insights</Text>
+        </Pressable>
+
+        <Pressable style={styles.menu} onPress={() => router.push("/orders")}>
+          <Text style={styles.menuText}>My orders</Text>
         </Pressable>
 
         <Pressable style={styles.logout} onPress={logout}>
@@ -46,14 +50,14 @@ const styles = StyleSheet.create({
   card: { backgroundColor: "#171a21", borderRadius: 16, padding: 18 },
   label: { color: "#9aa0ab", fontSize: 13 },
   value: { color: "#fff", fontSize: 17, marginTop: 2 },
-  orders: {
+  menu: {
     backgroundColor: "#171a21",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 12,
   },
-  ordersText: { color: "#fff", fontSize: 16, fontWeight: "600" },
+  menuText: { color: "#fff", fontSize: 16, fontWeight: "600" },
   logout: {
     borderColor: "#ff6b6b",
     borderWidth: 1,
