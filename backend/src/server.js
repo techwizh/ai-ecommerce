@@ -8,7 +8,24 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+// Render sits behind a proxy; this lets the login limit see each visitor's real IP
+app.set("trust proxy", 1);
+
+// CLIENT_URL can hold several addresses separated by commas
+const allowedOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow phones/Expo Go (no origin) and the listed web addresses
+      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error("Not allowed by CORS"));
+    },
+  })
+);
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
