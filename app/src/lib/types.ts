@@ -46,3 +46,11 @@ export type ChatMessage = {
   text: string;
   products?: Product[];
 };
+
+export type SellerSummary = {
+  productCount: number;
+  lowStockCount: number;
+  unitsSold: number;
+  revenue: number;
+  orderCount: number;
+};

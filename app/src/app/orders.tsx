@@ -16,10 +16,10 @@ import type { Order } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 
 const STATUS_COLORS: Record<string, string> = {
-  processing: "#fbbf24",
-  shipped: "#60a5fa",
-  delivered: "#4ade80",
-  cancelled: "#ff6b6b",
+  processing: "#b7791f",
+  shipped: "#b45309",
+  delivered: "#15803d",
+  cancelled: "#c0392b",
 };
 
 export default function OrdersScreen() {
@@ -50,9 +50,9 @@ export default function OrdersScreen() {
         <Text style={styles.title}>My orders</Text>
 
         {loading ? (
-          <ActivityIndicator color="#3b82f6" style={styles.center} />
+          <ActivityIndicator color="#f0a830" style={styles.center} />
         ) : error ? (
-          <Text style={[styles.message, { color: "#ff6b6b" }]}>{error}</Text>
+          <Text style={[styles.message, { color: "#c0392b" }]}>{error}</Text>
         ) : orders.length === 0 ? (
           <Text style={styles.message}>You have no orders yet</Text>
         ) : (
@@ -74,7 +74,7 @@ export default function OrdersScreen() {
                   <Text
                     style={[
                       styles.status,
-                      { color: STATUS_COLORS[item.status] || "#fff" },
+                      { color: STATUS_COLORS[item.status] || "#2b2118" },
                     ]}
                   >
                     {item.status.toUpperCase()}
@@ -135,7 +135,7 @@ export default function OrdersScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -145,44 +145,44 @@ const styles = StyleSheet.create({
   },
   topBar: { flexDirection: "row", paddingVertical: 14 },
   topButton: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  topText: { color: "#fff", fontSize: 14 },
-  title: { color: "#fff", fontSize: 24, fontWeight: "700", marginBottom: 12 },
+  topText: { color: "#2b2118", fontSize: 14 },
+  title: { color: "#2b2118", fontSize: 24, fontWeight: "700", marginBottom: 12 },
   center: { marginTop: 40 },
-  message: { color: "#9aa0ab", textAlign: "center", marginTop: 40, fontSize: 16 },
+  message: { color: "#7a6f5d", textAlign: "center", marginTop: 40, fontSize: 16 },
   list: { gap: 12, paddingBottom: 30 },
-  card: { backgroundColor: "#171a21", borderRadius: 16, padding: 16, gap: 8 },
+  card: { backgroundColor: "#fffdf7", borderRadius: 16, padding: 16, gap: 8 },
   cardHeader: { flexDirection: "row", justifyContent: "space-between" },
-  orderId: { color: "#fff", fontSize: 16, fontWeight: "700" },
-  date: { color: "#9aa0ab", fontSize: 13, marginTop: 2 },
+  orderId: { color: "#2b2118", fontSize: 16, fontWeight: "700" },
+  date: { color: "#7a6f5d", fontSize: 13, marginTop: 2 },
   status: { fontSize: 13, fontWeight: "700" },
   thumbs: { flexDirection: "row", gap: 8, marginVertical: 4 },
-  thumb: { width: 48, height: 48, borderRadius: 8, backgroundColor: "#0b0d12" },
-  line: { color: "#c5c9d2", fontSize: 14 },
+  thumb: { width: 48, height: 48, borderRadius: 8, backgroundColor: "#f7f1e3" },
+  line: { color: "#4a4031", fontSize: 14 },
   cardFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderTopColor: "#2a2f3a",
+    borderTopColor: "#e6dcc6",
     borderTopWidth: 1,
     paddingTop: 10,
     marginTop: 4,
   },
-  paid: { color: "#4ade80", fontSize: 14 },
-  unpaid: { color: "#fbbf24", fontSize: 14 },
-  total: { color: "#fff", fontSize: 18, fontWeight: "700" },
+  paid: { color: "#15803d", fontSize: 14 },
+  unpaid: { color: "#b7791f", fontSize: 14 },
+  total: { color: "#2b2118", fontSize: 18, fontWeight: "700" },
 
     payButton: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 10,
     paddingVertical: 11,
     alignItems: "center",
     marginTop: 4,
   },
-  payButtonText: { color: "#fff", fontSize: 15, fontWeight: "600" },
+  payButtonText: { color: "#2b2118", fontSize: 15, fontWeight: "600" },
 });

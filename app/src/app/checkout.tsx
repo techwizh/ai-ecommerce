@@ -76,28 +76,28 @@ export default function CheckoutScreen() {
           <TextInput
             style={styles.input}
             placeholder="Full name"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             value={fullName}
             onChangeText={setFullName}
           />
           <TextInput
             style={styles.input}
             placeholder="Address"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             value={address}
             onChangeText={setAddress}
           />
           <TextInput
             style={styles.input}
             placeholder="City"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             value={city}
             onChangeText={setCity}
           />
           <TextInput
             style={styles.input}
             placeholder="Phone number"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             keyboardType="phone-pad"
             value={phone}
             onChangeText={setPhone}
@@ -114,7 +114,7 @@ export default function CheckoutScreen() {
             disabled={submitting || items.length === 0}
           >
             {submitting ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color="#2b2118" />
             ) : (
               <Text style={styles.buttonText}>Place order</Text>
             )}
@@ -130,7 +130,7 @@ export default function CheckoutScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -140,45 +140,45 @@ const styles = StyleSheet.create({
   },
   topBar: { flexDirection: "row", paddingVertical: 14 },
   topButton: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  topText: { color: "#fff", fontSize: 14 },
+  topText: { color: "#2b2118", fontSize: 14 },
   content: { gap: 12, paddingBottom: 40 },
-  title: { color: "#fff", fontSize: 24, fontWeight: "700" },
+  title: { color: "#2b2118", fontSize: 24, fontWeight: "700" },
   summary: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 14,
     padding: 16,
   },
-  summaryText: { color: "#9aa0ab", fontSize: 15 },
-  summaryTotal: { color: "#fff", fontSize: 22, fontWeight: "700" },
-  section: { color: "#9aa0ab", fontSize: 14, marginTop: 6 },
+  summaryText: { color: "#7a6f5d", fontSize: 15 },
+  summaryTotal: { color: "#2b2118", fontSize: 22, fontWeight: "700" },
+  section: { color: "#7a6f5d", fontSize: 14, marginTop: 6 },
   input: {
-    backgroundColor: "#171a21",
-    borderColor: "#2a2f3a",
+    backgroundColor: "#fffdf7",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 12,
-    color: "#fff",
+    color: "#2b2118",
     paddingHorizontal: 14,
     paddingVertical: 13,
     fontSize: 16,
   },
-  error: { color: "#ff6b6b", fontSize: 14 },
+  error: { color: "#c0392b", fontSize: 14 },
   button: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 12,
     paddingVertical: 15,
     alignItems: "center",
     marginTop: 6,
   },
   buttonDisabled: { opacity: 0.5 },
-  buttonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
-  hint: { color: "#9aa0ab", textAlign: "center", fontSize: 14 },
+  buttonText: { color: "#2b2118", fontSize: 16, fontWeight: "600" },
+  hint: { color: "#7a6f5d", textAlign: "center", fontSize: 14 },
 });

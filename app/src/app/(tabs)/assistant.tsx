@@ -93,7 +93,7 @@ export default function AssistantScreen() {
           contentContainerStyle={styles.list}
           ListFooterComponent={
             sending ? (
-              <ActivityIndicator color="#3b82f6" style={styles.typing} />
+              <ActivityIndicator color="#f0a830" style={styles.typing} />
             ) : null
           }
           renderItem={({ item }) => (
@@ -146,7 +146,7 @@ export default function AssistantScreen() {
           <TextInput
             style={styles.input}
             placeholder="Ask about products..."
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             value={input}
             onChangeText={setInput}
             onSubmitEditing={() => send(input)}
@@ -166,7 +166,7 @@ export default function AssistantScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -174,56 +174,56 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 14,
   },
-  title: { color: "#fff", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
+  title: { color: "#2b2118", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
   list: { gap: 12, paddingBottom: 12 },
   rowUser: { alignItems: "flex-end" },
   rowBot: { alignItems: "flex-start", gap: 8 },
   bubbleUser: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 10,
     maxWidth: "85%",
   },
   bubbleBot: {
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 10,
     maxWidth: "85%",
   },
-  bubbleText: { color: "#fff", fontSize: 15, lineHeight: 21 },
+  bubbleText: { color: "#2b2118", fontSize: 15, lineHeight: 21 },
   cards: { gap: 12 },
   card: { width: 170 },
   typing: { alignSelf: "flex-start", marginTop: 6 },
   suggestScroll: { flexGrow: 0, marginBottom: 8 },
   suggestions: { gap: 8 },
   suggestion: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  suggestionText: { color: "#9aa0ab", fontSize: 13 },
+  suggestionText: { color: "#7a6f5d", fontSize: 13 },
   inputRow: { flexDirection: "row", gap: 8, paddingVertical: 10 },
   input: {
     flex: 1,
-    backgroundColor: "#171a21",
-    borderColor: "#2a2f3a",
+    backgroundColor: "#fffdf7",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 12,
-    color: "#fff",
+    color: "#2b2118",
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 16,
   },
   sendButton: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 12,
     paddingHorizontal: 18,
     justifyContent: "center",
   },
   sendDisabled: { opacity: 0.5 },
-  sendText: { color: "#fff", fontSize: 15, fontWeight: "600" },
+  sendText: { color: "#2b2118", fontSize: 15, fontWeight: "600" },
 });

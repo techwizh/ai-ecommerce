@@ -2,13 +2,25 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api, { TOKEN_KEY } from "@/lib/api";
 
-type User = { id: string; name: string; email: string };
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: "customer" | "seller";
+  businessName: string;
+};
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    seller?: { businessName: string }
+  ) => Promise<void>;
+  becomeSeller: (businessName: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -46,9 +58,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await saveSession(data.token, data.user);
   };
 
-  const register = async (name: string, email: string, password: string) => {
-    const { data } = await api.post("/auth/register", { name, email, password });
+  const register = async (
+    name: string,
+    email: string,
+    password: string,
+    seller?: { businessName: string }
+  ) => {
+    const { data } = await api.post("/auth/register", {
+      name,
+      email,
+      password,
+      role: seller ? "seller" : "customer",
+      businessName: seller?.businessName,
+    });
     await saveSession(data.token, data.user);
+  };
+
+  const becomeSeller = async (businessName: string) => {
+    const { data } = await api.post("/auth/become-seller", { businessName });
+    setUser(data.user);
   };
 
   const logout = async () => {
@@ -57,7 +85,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, register, becomeSeller, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

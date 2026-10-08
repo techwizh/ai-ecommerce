@@ -65,9 +65,9 @@ export default function ProductDetailScreen() {
         </View>
 
         {loading ? (
-          <ActivityIndicator color="#3b82f6" style={styles.center} />
+          <ActivityIndicator color="#f0a830" style={styles.center} />
         ) : error || !product ? (
-          <Text style={[styles.message, { color: "#ff6b6b" }]}>
+          <Text style={[styles.message, { color: "#c0392b" }]}>
             {error || "Product not found"}
           </Text>
         ) : (
@@ -117,7 +117,7 @@ export default function ProductDetailScreen() {
               disabled={adding || product.stock === 0}
             >
               {adding ? (
-                <ActivityIndicator color="#fff" />
+                <ActivityIndicator color="#2b2118" />
               ) : (
                 <Text style={styles.addText}>Add to cart</Text>
               )}
@@ -132,7 +132,7 @@ export default function ProductDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -146,13 +146,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   topButton: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  topText: { color: "#fff", fontSize: 14 },
+  topText: { color: "#2b2118", fontSize: 14 },
   center: { marginTop: 40 },
   message: { textAlign: "center", marginTop: 40, fontSize: 16 },
   content: { paddingBottom: 40, gap: 10 },
@@ -160,35 +160,35 @@ const styles = StyleSheet.create({
     width: "100%",
     aspectRatio: 1,
     borderRadius: 16,
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
   },
-  brand: { color: "#9aa0ab", fontSize: 14, marginTop: 6 },
-  name: { color: "#fff", fontSize: 24, fontWeight: "700" },
+  brand: { color: "#7a6f5d", fontSize: 14, marginTop: 6 },
+  name: { color: "#2b2118", fontSize: 24, fontWeight: "700" },
   row: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  price: { color: "#60a5fa", fontSize: 24, fontWeight: "700" },
-  rating: { color: "#fbbf24", fontSize: 15 },
-  description: { color: "#c5c9d2", fontSize: 16, lineHeight: 24 },
-  stock: { color: "#4ade80", fontSize: 14 },
-  out: { color: "#ff6b6b", fontSize: 14 },
+  price: { color: "#b45309", fontSize: 24, fontWeight: "700" },
+  rating: { color: "#b7791f", fontSize: 15 },
+  description: { color: "#4a4031", fontSize: 16, lineHeight: 24 },
+  stock: { color: "#15803d", fontSize: 14 },
+  out: { color: "#c0392b", fontSize: 14 },
   qtyRow: { flexDirection: "row", alignItems: "center", gap: 16, marginTop: 6 },
   qtyButton: {
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 10,
     width: 42,
     height: 42,
     alignItems: "center",
     justifyContent: "center",
   },
-  qtyText: { color: "#fff", fontSize: 22 },
-  qtyValue: { color: "#fff", fontSize: 18, fontWeight: "600", minWidth: 24, textAlign: "center" },
+  qtyText: { color: "#2b2118", fontSize: 22 },
+  qtyValue: { color: "#2b2118", fontSize: 18, fontWeight: "600", minWidth: 24, textAlign: "center" },
   addButton: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 12,
     paddingVertical: 15,
     alignItems: "center",
     marginTop: 8,
   },
   addDisabled: { opacity: 0.5 },
-  addText: { color: "#fff", fontSize: 16, fontWeight: "600" },
-  feedback: { color: "#9aa0ab", textAlign: "center", fontSize: 14 },
+  addText: { color: "#2b2118", fontSize: 16, fontWeight: "600" },
+  feedback: { color: "#7a6f5d", textAlign: "center", fontSize: 14 },
 });

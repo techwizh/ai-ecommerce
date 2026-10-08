@@ -145,9 +145,9 @@ export default function HomeScreen() {
           ListHeaderComponent={header}
           ListEmptyComponent={
             loading ? (
-              <ActivityIndicator color="#3b82f6" style={styles.center} />
+              <ActivityIndicator color="#f0a830" style={styles.center} />
             ) : error ? (
-              <Text style={[styles.message, { color: "#ff6b6b" }]}>{error}</Text>
+              <Text style={[styles.message, { color: "#c0392b" }]}>{error}</Text>
             ) : (
               <Text style={styles.message}>No products found</Text>
             )
@@ -165,7 +165,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -174,27 +174,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   header: { paddingVertical: 14 },
-  hello: { color: "#fff", fontSize: 22, fontWeight: "700" },
-  sub: { color: "#9aa0ab", fontSize: 14, marginTop: 2 },
+  hello: { color: "#2b2118", fontSize: 22, fontWeight: "700" },
+  sub: { color: "#7a6f5d", fontSize: 14, marginTop: 2 },
   recsBlock: { marginBottom: 18 },
-  sectionTitle: { color: "#fff", fontSize: 18, fontWeight: "700" },
-  sectionSub: { color: "#9aa0ab", fontSize: 13, marginTop: 2, marginBottom: 8 },
+  sectionTitle: { color: "#2b2118", fontSize: 18, fontWeight: "700" },
+  sectionSub: { color: "#7a6f5d", fontSize: 13, marginTop: 2, marginBottom: 8 },
   recsRow: { gap: 12, paddingVertical: 4 },
   recCard: { width: 170 },
   chipsScroll: { flexGrow: 0, flexShrink: 0, height: 44, marginVertical: 12 },
   chips: { gap: 8 },
   chip: {
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-  chipActive: { backgroundColor: "#3b82f6" },
-  chipText: { color: "#9aa0ab", fontSize: 14 },
-  chipTextActive: { color: "#fff", fontWeight: "600" },
+  chipActive: { backgroundColor: "#f0a830" },
+  chipText: { color: "#7a6f5d", fontSize: 14 },
+  chipTextActive: { color: "#2b2118", fontWeight: "600" },
   center: { marginTop: 40 },
   message: {
-    color: "#9aa0ab",
+    color: "#7a6f5d",
     textAlign: "center",
     marginTop: 40,
     fontSize: 16,

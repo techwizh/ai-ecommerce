@@ -62,9 +62,9 @@ export default function InsightsScreen() {
         <Text style={styles.title}>Your insights</Text>
 
         {loading ? (
-          <ActivityIndicator color="#3b82f6" style={styles.center} />
+          <ActivityIndicator color="#f0a830" style={styles.center} />
         ) : error || !data ? (
-          <Text style={[styles.message, { color: "#ff6b6b" }]}>
+          <Text style={[styles.message, { color: "#c0392b" }]}>
             {error || "Could not load insights"}
           </Text>
         ) : (
@@ -158,7 +158,7 @@ export default function InsightsScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -168,46 +168,46 @@ const styles = StyleSheet.create({
   },
   topBar: { flexDirection: "row", paddingVertical: 14 },
   topButton: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  topText: { color: "#fff", fontSize: 14 },
-  title: { color: "#fff", fontSize: 24, fontWeight: "700", marginBottom: 12 },
+  topText: { color: "#2b2118", fontSize: 14 },
+  title: { color: "#2b2118", fontSize: 24, fontWeight: "700", marginBottom: 12 },
   center: { marginTop: 40 },
-  message: { color: "#9aa0ab", textAlign: "center", marginTop: 20, fontSize: 15 },
+  message: { color: "#7a6f5d", textAlign: "center", marginTop: 20, fontSize: 15 },
   content: { gap: 12, paddingBottom: 40 },
-  hero: { backgroundColor: "#3b82f6", borderRadius: 18, padding: 20 },
-  heroLabel: { color: "#dbeafe", fontSize: 14 },
-  heroValue: { color: "#fff", fontSize: 34, fontWeight: "800", marginTop: 4 },
-  heroSub: { color: "#dbeafe", fontSize: 14, marginTop: 4 },
+  hero: { backgroundColor: "#f0a830", borderRadius: 18, padding: 20 },
+  heroLabel: { color: "#5b3a0a", fontSize: 14 },
+  heroValue: { color: "#2b2118", fontSize: 34, fontWeight: "800", marginTop: 4 },
+  heroSub: { color: "#5b3a0a", fontSize: 14, marginTop: 4 },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   stat: {
     flexGrow: 1,
     flexBasis: "45%",
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 14,
     padding: 16,
   },
-  statValue: { color: "#fff", fontSize: 20, fontWeight: "700" },
-  statLabel: { color: "#9aa0ab", fontSize: 13, marginTop: 2 },
-  card: { backgroundColor: "#171a21", borderRadius: 14, padding: 16, gap: 4 },
-  cardLabel: { color: "#9aa0ab", fontSize: 13 },
-  cardValue: { color: "#fff", fontSize: 18, fontWeight: "700" },
-  cardSub: { color: "#9aa0ab", fontSize: 13 },
+  statValue: { color: "#2b2118", fontSize: 20, fontWeight: "700" },
+  statLabel: { color: "#7a6f5d", fontSize: 13, marginTop: 2 },
+  card: { backgroundColor: "#fffdf7", borderRadius: 14, padding: 16, gap: 4 },
+  cardLabel: { color: "#7a6f5d", fontSize: 13 },
+  cardValue: { color: "#2b2118", fontSize: 18, fontWeight: "700" },
+  cardSub: { color: "#7a6f5d", fontSize: 13 },
   barRow: { marginTop: 10 },
   barHeader: { flexDirection: "row", justifyContent: "space-between" },
-  barName: { color: "#fff", fontSize: 14 },
-  barAmount: { color: "#60a5fa", fontSize: 14, fontWeight: "600" },
+  barName: { color: "#2b2118", fontSize: 14 },
+  barAmount: { color: "#b45309", fontSize: 14, fontWeight: "600" },
   barTrack: {
     height: 8,
-    backgroundColor: "#0b0d12",
+    backgroundColor: "#f7f1e3",
     borderRadius: 4,
     marginTop: 6,
     overflow: "hidden",
   },
-  barFill: { height: 8, backgroundColor: "#3b82f6", borderRadius: 4 },
-  footer: { color: "#9aa0ab", textAlign: "center", fontSize: 13 },
+  barFill: { height: 8, backgroundColor: "#f0a830", borderRadius: 4 },
+  footer: { color: "#7a6f5d", textAlign: "center", fontSize: 13 },
 });

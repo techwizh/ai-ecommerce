@@ -73,9 +73,9 @@ export default function PayScreen() {
         </View>
 
         {loading ? (
-          <ActivityIndicator color="#3b82f6" style={styles.center} />
+          <ActivityIndicator color="#f0a830" style={styles.center} />
         ) : !order ? (
-          <Text style={[styles.message, { color: "#ff6b6b" }]}>
+          <Text style={[styles.message, { color: "#c0392b" }]}>
             {error || "Order not found"}
           </Text>
         ) : paid || order.paymentStatus === "paid" ? (
@@ -120,7 +120,7 @@ export default function PayScreen() {
             <TextInput
               style={styles.input}
               placeholder="Card number"
-              placeholderTextColor="#8b8f98"
+              placeholderTextColor="#a39a88"
               keyboardType="number-pad"
               value={cardNumber}
               onChangeText={onCardChange}
@@ -129,7 +129,7 @@ export default function PayScreen() {
               <TextInput
                 style={[styles.input, styles.half]}
                 placeholder="MM/YY"
-                placeholderTextColor="#8b8f98"
+                placeholderTextColor="#a39a88"
                 keyboardType="number-pad"
                 value={expiry}
                 onChangeText={onExpiryChange}
@@ -137,7 +137,7 @@ export default function PayScreen() {
               <TextInput
                 style={[styles.input, styles.half]}
                 placeholder="CVC"
-                placeholderTextColor="#8b8f98"
+                placeholderTextColor="#a39a88"
                 keyboardType="number-pad"
                 secureTextEntry
                 maxLength={4}
@@ -154,7 +154,7 @@ export default function PayScreen() {
               disabled={paying}
             >
               {paying ? (
-                <ActivityIndicator color="#fff" />
+                <ActivityIndicator color="#2b2118" />
               ) : (
                 <Text style={styles.buttonText}>
                   Pay {formatPrice(order.total)}
@@ -173,7 +173,7 @@ export default function PayScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -183,61 +183,61 @@ const styles = StyleSheet.create({
   },
   topBar: { flexDirection: "row", paddingVertical: 14 },
   topButton: {
-    borderColor: "#2a2f3a",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 8,
   },
-  topText: { color: "#fff", fontSize: 14 },
+  topText: { color: "#2b2118", fontSize: 14 },
   center: { marginTop: 40 },
   message: { textAlign: "center", marginTop: 40, fontSize: 16 },
   content: { gap: 12, paddingBottom: 40 },
-  title: { color: "#fff", fontSize: 24, fontWeight: "700" },
+  title: { color: "#2b2118", fontSize: 24, fontWeight: "700" },
   demo: {
     backgroundColor: "rgba(251,191,36,0.12)",
-    borderColor: "#fbbf24",
+    borderColor: "#b7791f",
     borderWidth: 1,
     borderRadius: 12,
     padding: 12,
   },
-  demoText: { color: "#fbbf24", fontSize: 13, lineHeight: 19 },
+  demoText: { color: "#b7791f", fontSize: 13, lineHeight: 19 },
   summary: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 14,
     padding: 16,
   },
-  summaryText: { color: "#9aa0ab", fontSize: 15 },
-  summaryTotal: { color: "#fff", fontSize: 22, fontWeight: "700" },
-  warn: { color: "#fbbf24", fontSize: 14 },
+  summaryText: { color: "#7a6f5d", fontSize: 15 },
+  summaryTotal: { color: "#2b2118", fontSize: 22, fontWeight: "700" },
+  warn: { color: "#b7791f", fontSize: 14 },
   input: {
-    backgroundColor: "#171a21",
-    borderColor: "#2a2f3a",
+    backgroundColor: "#fffdf7",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 12,
-    color: "#fff",
+    color: "#2b2118",
     paddingHorizontal: 14,
     paddingVertical: 13,
     fontSize: 16,
   },
   twoCols: { flexDirection: "row", gap: 12 },
   half: { flex: 1 },
-  error: { color: "#ff6b6b", fontSize: 14 },
+  error: { color: "#c0392b", fontSize: 14 },
   button: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 12,
     paddingVertical: 15,
     alignItems: "center",
     marginTop: 6,
   },
   buttonDisabled: { opacity: 0.6 },
-  buttonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
-  later: { color: "#9aa0ab", textAlign: "center", fontSize: 14, marginTop: 6 },
+  buttonText: { color: "#2b2118", fontSize: 16, fontWeight: "600" },
+  later: { color: "#7a6f5d", textAlign: "center", fontSize: 14, marginTop: 6 },
   done: { alignItems: "center", gap: 10, marginTop: 60 },
-  doneIcon: { color: "#4ade80", fontSize: 56 },
-  doneTitle: { color: "#fff", fontSize: 22, fontWeight: "700" },
-  doneText: { color: "#9aa0ab", fontSize: 15, marginBottom: 10 },
+  doneIcon: { color: "#15803d", fontSize: 56 },
+  doneTitle: { color: "#2b2118", fontSize: 22, fontWeight: "700" },
+  doneText: { color: "#7a6f5d", fontSize: 15, marginBottom: 10 },
 });

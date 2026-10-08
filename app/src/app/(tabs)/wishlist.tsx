@@ -62,7 +62,7 @@ export default function WishlistScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 14,
   },
-  title: { color: "#fff", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
-  message: { color: "#9aa0ab", textAlign: "center", marginTop: 40, fontSize: 16 },
+  title: { color: "#2b2118", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
+  message: { color: "#7a6f5d", textAlign: "center", marginTop: 40, fontSize: 16 },
   list: { paddingBottom: 30 },
 });

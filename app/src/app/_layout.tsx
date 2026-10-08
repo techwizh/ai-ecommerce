@@ -1,6 +1,5 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
@@ -8,6 +7,18 @@ import { CartProvider } from '@/context/CartContext';
 import { WishlistProvider } from '@/context/WishlistContext';
 
 SplashScreen.preventAutoHideAsync();
+
+const CreamTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#f7f1e3',
+    card: '#fffdf7',
+    text: '#2b2118',
+    border: '#e6dcc6',
+    primary: '#f0a830',
+  },
+};
 
 function RootNavigator() {
   const { user, loading } = useAuth();
@@ -23,6 +34,8 @@ function RootNavigator() {
         <Stack.Screen name="orders" />
         <Stack.Screen name="pay/[id]" />
         <Stack.Screen name="insights" />
+                <Stack.Screen name="seller/index" />
+        <Stack.Screen name="seller/product" />
       </Stack.Protected>
       <Stack.Protected guard={!user}>
         <Stack.Screen name="login" />
@@ -33,12 +46,11 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   return (
     <AuthProvider>
       <CartProvider>
         <WishlistProvider>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <ThemeProvider value={CreamTheme}>
             <AnimatedSplashOverlay />
             <RootNavigator />
           </ThemeProvider>

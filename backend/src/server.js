@@ -31,6 +31,8 @@ app.use("/api/insights", require("./routes/insightsRoutes"));
 
 app.use("/api/assistant", require("./routes/assistantRoutes"));
 
+app.use("/api/seller", require("./routes/sellerRoutes"));
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {

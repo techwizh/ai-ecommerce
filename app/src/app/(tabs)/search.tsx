@@ -75,15 +75,15 @@ export default function SearchScreen() {
         <TextInput
           style={styles.input}
           placeholder="Search products..."
-          placeholderTextColor="#8b8f98"
+          placeholderTextColor="#a39a88"
           value={query}
           onChangeText={setQuery}
         />
 
         {loading ? (
-          <ActivityIndicator color="#3b82f6" style={styles.center} />
+          <ActivityIndicator color="#f0a830" style={styles.center} />
         ) : error ? (
-          <Text style={[styles.message, { color: "#ff6b6b" }]}>{error}</Text>
+          <Text style={[styles.message, { color: "#c0392b" }]}>{error}</Text>
         ) : !search ? (
           <Text style={styles.message}>Type to search for products</Text>
         ) : products.length === 0 ? (
@@ -117,7 +117,7 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: "#0b0d12" },
+  screen: { flex: 1, backgroundColor: "#f7f1e3" },
   container: {
     flex: 1,
     width: "100%",
@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 14,
   },
-  title: { color: "#fff", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
+  title: { color: "#2b2118", fontSize: 22, fontWeight: "700", paddingVertical: 14 },
   input: {
-    backgroundColor: "#171a21",
-    borderColor: "#2a2f3a",
+    backgroundColor: "#fffdf7",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 12,
-    color: "#fff",
+    color: "#2b2118",
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 16,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   grid: { flex: 1 },
   center: { marginTop: 40 },
   message: {
-    color: "#9aa0ab",
+    color: "#7a6f5d",
     textAlign: "center",
     marginTop: 40,
     fontSize: 16,

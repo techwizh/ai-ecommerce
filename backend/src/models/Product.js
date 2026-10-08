@@ -11,10 +11,12 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, default: 0, min: 0, max: 5 },
     numReviews: { type: Number, default: 0 },
     stock: { type: Number, required: true, min: 0, default: 0 },
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
   },
   { timestamps: true }
 );
 
 productSchema.index({ category: 1, price: 1 });
+productSchema.index({ seller: 1 });
 
 module.exports = mongoose.model("Product", productSchema);

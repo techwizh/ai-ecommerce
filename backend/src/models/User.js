@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     password: { type: String, required: true, minlength: 6, select: false },
+    role: { type: String, enum: ["customer", "seller"], default: "customer" },
+    businessName: { type: String, trim: true, default: "" },
   },
   { timestamps: true }
 );

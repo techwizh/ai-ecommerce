@@ -25,6 +25,8 @@ export default function AuthForm({ mode }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isBusiness, setIsBusiness] = useState(false);
+  const [businessName, setBusinessName] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -38,11 +40,19 @@ export default function AuthForm({ mode }: Props) {
     if (isRegister && password.length < 6) {
       return setError("Password must be at least 6 characters");
     }
+    if (isRegister && isBusiness && !businessName.trim()) {
+      return setError("Please enter your business name");
+    }
 
     setSubmitting(true);
     try {
       if (isRegister) {
-        await register(name.trim(), email.trim(), password);
+        await register(
+          name.trim(),
+          email.trim(),
+          password,
+          isBusiness ? { businessName: businessName.trim() } : undefined
+        );
       } else {
         await login(email.trim(), password);
       }
@@ -77,7 +87,7 @@ export default function AuthForm({ mode }: Props) {
             <TextInput
               style={styles.input}
               placeholder="Full name"
-              placeholderTextColor="#8b8f98"
+              placeholderTextColor="#a39a88"
               value={name}
               onChangeText={setName}
             />
@@ -86,7 +96,7 @@ export default function AuthForm({ mode }: Props) {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             autoCapitalize="none"
             keyboardType="email-address"
             value={email}
@@ -96,12 +106,37 @@ export default function AuthForm({ mode }: Props) {
           <TextInput
             style={styles.input}
             placeholder="Password"
-            placeholderTextColor="#8b8f98"
+            placeholderTextColor="#a39a88"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
             onSubmitEditing={submit}
           />
+
+          {isRegister && (
+            <>
+              <Pressable
+                style={styles.toggleRow}
+                onPress={() => setIsBusiness((v) => !v)}
+              >
+                <View style={[styles.box, isBusiness && styles.boxOn]}>
+                  {isBusiness && <Text style={styles.tick}>✓</Text>}
+                </View>
+                <Text style={styles.toggleText}>
+                  I own a business and want to sell
+                </Text>
+              </Pressable>
+              {isBusiness && (
+                <TextInput
+                  style={styles.input}
+                  placeholder="Business name"
+                  placeholderTextColor="#a39a88"
+                  value={businessName}
+                  onChangeText={setBusinessName}
+                />
+              )}
+            </>
+          )}
 
           {!!error && <Text style={styles.error}>{error}</Text>}
 
@@ -111,7 +146,7 @@ export default function AuthForm({ mode }: Props) {
             disabled={submitting}
           >
             {submitting ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color="#2b2118" />
             ) : (
               <Text style={styles.buttonText}>
                 {isRegister ? "Sign up" : "Log in"}
@@ -136,7 +171,7 @@ export default function AuthForm({ mode }: Props) {
 }
 
 const styles = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: "#0b0d12" },
+  flex: { flex: 1, backgroundColor: "#f7f1e3" },
   scroll: {
     flexGrow: 1,
     justifyContent: "center",
@@ -146,34 +181,47 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     maxWidth: 420,
-    backgroundColor: "#171a21",
+    backgroundColor: "#fffdf7",
     borderRadius: 20,
     padding: 24,
     gap: 14,
   },
-  title: { color: "#fff", fontSize: 26, fontWeight: "700" },
-  subtitle: { color: "#9aa0ab", fontSize: 15, marginBottom: 6 },
+  title: { color: "#2b2118", fontSize: 26, fontWeight: "700" },
+  subtitle: { color: "#7a6f5d", fontSize: 15, marginBottom: 6 },
   input: {
-    backgroundColor: "#0b0d12",
-    borderColor: "#2a2f3a",
+    backgroundColor: "#f7f1e3",
+    borderColor: "#e6dcc6",
     borderWidth: 1,
     borderRadius: 12,
-    color: "#fff",
+    color: "#2b2118",
     paddingHorizontal: 14,
     paddingVertical: 13,
     fontSize: 16,
   },
-  error: { color: "#ff6b6b", fontSize: 14 },
+  error: { color: "#c0392b", fontSize: 14 },
   button: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#f0a830",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
     marginTop: 4,
   },
   buttonDisabled: { opacity: 0.6 },
-  buttonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
+  buttonText: { color: "#2b2118", fontSize: 16, fontWeight: "700" },
   footer: { flexDirection: "row", justifyContent: "center", marginTop: 6 },
-  footerText: { color: "#9aa0ab", fontSize: 14 },
-  link: { color: "#60a5fa", fontSize: 14, fontWeight: "600" },
+  footerText: { color: "#7a6f5d", fontSize: 14 },
+  link: { color: "#b45309", fontSize: 14, fontWeight: "600" },
+  toggleRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  box: {
+    width: 22,
+    height: 22,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#e6dcc6",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  boxOn: { backgroundColor: "#f0a830", borderColor: "#f0a830" },
+  tick: { color: "#2b2118", fontSize: 14, fontWeight: "700" },
+  toggleText: { color: "#7a6f5d", fontSize: 14 },
 });
