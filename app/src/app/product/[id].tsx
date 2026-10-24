@@ -16,6 +16,7 @@ import api, { getErrorMessage } from "@/lib/api";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 
+
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -78,7 +79,14 @@ export default function ProductDetailScreen() {
             <Text style={styles.name}>{product.name}</Text>
 
             <View style={styles.row}>
-              <Text style={styles.price}>{formatPrice(product.price)}</Text>
+              <View>
+  <Text style={styles.price}>
+    {formatPrice(product.onSale && product.salePrice ? product.salePrice : product.price)}
+  </Text>
+  {product.onSale && product.salePrice ? (
+    <Text style={styles.oldPrice}>{formatPrice(product.price)}</Text>
+  ) : null}
+</View>
               <Text style={styles.rating}>
                 ★ {product.rating.toFixed(1)} ({product.numReviews})
               </Text>
@@ -166,6 +174,8 @@ const styles = StyleSheet.create({
   name: { color: "#2b2118", fontSize: 24, fontWeight: "700" },
   row: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   price: { color: "#b45309", fontSize: 24, fontWeight: "700" },
+    price: { color: "#b45309", fontSize: 24, fontWeight: "700" },
+  oldPrice: { color: "#a39a88", fontSize: 14, textDecorationLine: "line-through" },
   rating: { color: "#b7791f", fontSize: 15 },
   description: { color: "#4a4031", fontSize: 16, lineHeight: 24 },
   stock: { color: "#15803d", fontSize: 14 },
