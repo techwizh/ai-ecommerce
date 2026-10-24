@@ -31,7 +31,7 @@ exports.createOrder = async (req, res) => {
   }
 
   const items = cartItems.map((i) => ({
-    product: i.product._id,
+    price: i.product.currentPrice,
     name: i.product.name,
     image: i.product.image,
     price: i.product.price,

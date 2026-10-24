@@ -64,3 +64,15 @@ exports.getProductById = async (req, res) => {
   }
   res.json({ product });
 };
+
+// GET /api/products/flash-sales  (live sales, ending soonest first)
+exports.getFlashSales = async (req, res) => {
+  const products = await Product.find({
+    salePrice: { $ne: null },
+    saleEndsAt: { $gt: new Date() },
+    stock: { $gt: 0 },
+  })
+    .sort({ saleEndsAt: 1 })
+    .limit(12);
+  res.json({ products });
+};

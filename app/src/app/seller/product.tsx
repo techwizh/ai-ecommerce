@@ -5,12 +5,12 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import AppText from "@/components/app-text";
 import api, { getErrorMessage } from "@/lib/api";
 
 const CATEGORIES = [
@@ -33,6 +33,8 @@ export default function SellerProductForm() {
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
+  const [salePrice, setSalePrice] = useState("");
+  const [saleHours, setSaleHours] = useState("");
   const [loading, setLoading] = useState(editing);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -64,7 +66,16 @@ export default function SellerProductForm() {
       return setError("Please fill in name, description, category, price and stock");
     }
 
-    const body = { name, description, category, price, stock, image };
+    const body = {
+      name,
+      description,
+      category,
+      price,
+      stock,
+      image,
+      salePrice,
+      saleHours,
+    };
     setSaving(true);
     try {
       if (editing) await api.put(`/seller/products/${id}`, body);
@@ -82,7 +93,7 @@ export default function SellerProductForm() {
       <View style={styles.container}>
         <View style={styles.topBar}>
           <Pressable onPress={goBack} style={styles.topButton}>
-            <Text style={styles.topText}>← Back</Text>
+            <AppText style={styles.topText}>← Back</AppText>
           </Pressable>
         </View>
 
@@ -93,7 +104,9 @@ export default function SellerProductForm() {
             contentContainerStyle={styles.content}
             keyboardShouldPersistTaps="handled"
           >
-            <Text style={styles.title}>{editing ? "Edit product" : "Add product"}</Text>
+            <AppText style={styles.title}>
+              {editing ? "Edit product" : "Add product"}
+            </AppText>
 
             <TextInput
               style={styles.input}
@@ -111,7 +124,7 @@ export default function SellerProductForm() {
               onChangeText={setDescription}
             />
 
-            <Text style={styles.label}>Category</Text>
+            <AppText style={styles.label}>Category</AppText>
             <View style={styles.chips}>
               {CATEGORIES.map((c) => (
                 <Pressable
@@ -119,9 +132,11 @@ export default function SellerProductForm() {
                   style={[styles.chip, category === c && styles.chipActive]}
                   onPress={() => setCategory(c)}
                 >
-                  <Text style={[styles.chipText, category === c && styles.chipTextActive]}>
+                  <AppText
+                    style={[styles.chipText, category === c && styles.chipTextActive]}
+                  >
                     {c}
-                  </Text>
+                  </AppText>
                 </Pressable>
               ))}
             </View>
@@ -145,6 +160,30 @@ export default function SellerProductForm() {
               />
             </View>
 
+            <AppText style={styles.label}>Flash sale (optional)</AppText>
+            <View style={styles.twoCols}>
+              <TextInput
+                style={[styles.input, styles.half]}
+                placeholder="Sale price (KSh)"
+                placeholderTextColor="#a39a88"
+                keyboardType="numeric"
+                value={salePrice}
+                onChangeText={(t) => setSalePrice(t.replace(/[^0-9.]/g, ""))}
+              />
+              <TextInput
+                style={[styles.input, styles.half]}
+                placeholder="Hours (1-168)"
+                placeholderTextColor="#a39a88"
+                keyboardType="number-pad"
+                value={saleHours}
+                onChangeText={(t) => setSaleHours(t.replace(/\D/g, ""))}
+              />
+            </View>
+            <AppText style={styles.hint}>
+              Leave both empty for no sale. Editing a product with empty sale
+              fields ends its sale.
+            </AppText>
+
             <TextInput
               style={styles.input}
               placeholder="Image link (optional)"
@@ -153,12 +192,12 @@ export default function SellerProductForm() {
               value={image}
               onChangeText={setImage}
             />
-            <Text style={styles.hint}>
+            <AppText style={styles.hint}>
               Paste a link to a photo that starts with http. If you leave it empty,
               a placeholder picture is used.
-            </Text>
+            </AppText>
 
-            {!!error && <Text style={styles.error}>{error}</Text>}
+            {!!error && <AppText style={styles.error}>{error}</AppText>}
 
             <Pressable
               style={[styles.button, saving && styles.buttonDisabled]}
@@ -168,9 +207,9 @@ export default function SellerProductForm() {
               {saving ? (
                 <ActivityIndicator color="#2b2118" />
               ) : (
-                <Text style={styles.buttonText}>
+                <AppText style={styles.buttonText}>
                   {editing ? "Save changes" : "Add product"}
-                </Text>
+                </AppText>
               )}
             </Pressable>
           </ScrollView>

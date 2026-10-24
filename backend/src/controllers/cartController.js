@@ -14,7 +14,7 @@ const formatCart = async (cart) => {
     .map((i) => ({
       product: i.product,
       quantity: i.quantity,
-      subtotal: Number((i.product.price * i.quantity).toFixed(2)),
+      subtotal: Number((i.product.currentPrice * i.quantity).toFixed(2)),
     }));
   const total = Number(items.reduce((s, i) => s + i.subtotal, 0).toFixed(2));
   const count = items.reduce((s, i) => s + i.quantity, 0);

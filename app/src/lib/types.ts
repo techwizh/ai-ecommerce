@@ -3,6 +3,10 @@ export type Product = {
   name: string;
   description: string;
   price: number;
+  salePrice?: number | null;
+  saleEndsAt?: string | null;
+  onSale?: boolean;
+  currentPrice?: number;
   category: string;
   brand: string;
   image: string;

@@ -1,6 +1,8 @@
 import { DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { ROBOTO_FONTS } from '@/components/app-text';
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { CartProvider } from '@/context/CartContext';
@@ -34,7 +36,7 @@ function RootNavigator() {
         <Stack.Screen name="orders" />
         <Stack.Screen name="pay/[id]" />
         <Stack.Screen name="insights" />
-                <Stack.Screen name="seller/index" />
+        <Stack.Screen name="seller/index" />
         <Stack.Screen name="seller/product" />
       </Stack.Protected>
       <Stack.Protected guard={!user}>
@@ -46,6 +48,9 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts(ROBOTO_FONTS);
+  if (!fontsLoaded) return null;
+
   return (
     <AuthProvider>
       <CartProvider>

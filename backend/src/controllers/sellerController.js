@@ -31,6 +31,25 @@ const readProduct = (body) => {
   if (data.image && !/^https?:\/\//i.test(data.image)) {
     return { error: "The image must be a link starting with http" };
   }
+
+  // Optional flash sale: a sale price plus how many hours it lasts
+  const rawSale = String(body.salePrice ?? "").trim();
+  if (rawSale) {
+    const salePrice = Number(rawSale);
+    const hours = Number.parseInt(body.saleHours, 10);
+    if (!Number.isFinite(salePrice) || salePrice <= 0 || salePrice >= data.price) {
+      return { error: "The sale price must be lower than the normal price" };
+    }
+    if (!Number.isInteger(hours) || hours < 1 || hours > 168) {
+      return { error: "The sale must last between 1 and 168 hours" };
+    }
+    data.salePrice = salePrice;
+    data.saleEndsAt = new Date(Date.now() + hours * 60 * 60 * 1000);
+  } else {
+    data.salePrice = null;
+    data.saleEndsAt = null;
+  }
+
   return { data };
 };
 
