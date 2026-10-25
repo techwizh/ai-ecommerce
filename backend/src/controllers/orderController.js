@@ -2,13 +2,19 @@ const mongoose = require("mongoose");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
+const { cleanText } = require("../middleware/security");
 
 // POST /api/orders   body: { shippingAddress: { fullName, address, city, phone } }
 exports.createOrder = async (req, res) => {
   const { shippingAddress } = req.body;
 
   const required = ["fullName", "address", "city", "phone"];
-  if (!shippingAddress || required.some((f) => !shippingAddress[f]?.trim())) {
+  if (
+    !shippingAddress ||
+    required.some(
+      (f) => typeof shippingAddress[f] !== "string" || !shippingAddress[f].trim()
+    )
+  ) {
     return res
       .status(400)
       .json({ message: "Full name, address, city and phone are required" });
@@ -30,11 +36,12 @@ exports.createOrder = async (req, res) => {
     }
   }
 
+  // Prices come from the server (sale price while a sale is live), never from the app
   const items = cartItems.map((i) => ({
-    price: i.product.currentPrice,
+    product: i.product._id,
     name: i.product.name,
     image: i.product.image,
-    price: i.product.price,
+    price: i.product.currentPrice,
     quantity: i.quantity,
   }));
   const total = Number(
@@ -45,10 +52,10 @@ exports.createOrder = async (req, res) => {
     user: req.user._id,
     items,
     shippingAddress: {
-      fullName: shippingAddress.fullName.trim(),
-      address: shippingAddress.address.trim(),
-      city: shippingAddress.city.trim(),
-      phone: shippingAddress.phone.trim(),
+      fullName: cleanText(shippingAddress.fullName).slice(0, 80),
+      address: cleanText(shippingAddress.address).slice(0, 200),
+      city: cleanText(shippingAddress.city).slice(0, 80),
+      phone: cleanText(shippingAddress.phone).slice(0, 30),
     },
     total,
   });

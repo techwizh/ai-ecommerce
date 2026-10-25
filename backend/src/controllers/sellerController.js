@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
+const { cleanText } = require("../middleware/security");
 
 const CATEGORIES = [
   "Electronics",
@@ -13,11 +14,11 @@ const CATEGORIES = [
 
 // Validate and clean what the seller typed. Prices and stock are checked on the server.
 const readProduct = (body) => {
-  const data = {
-    name: String(body.name || "").trim(),
-    description: String(body.description || "").trim(),
-    category: String(body.category || "").trim(),
-    brand: String(body.brand || "").trim(),
+    const data = {
+    name: cleanText(body.name),
+    description: cleanText(body.description),
+    category: cleanText(body.category),
+    brand: cleanText(body.brand),
     image: String(body.image || "").trim(),
     price: Number(body.price),
     stock: Number.parseInt(body.stock, 10),

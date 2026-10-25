@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { cleanText } = require("../middleware/security");
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -12,35 +13,42 @@ const userResponse = (user) => ({
   businessName: user.businessName,
 });
 
-exports.register = async (req, res) => {
-  const { name, email, password, role, businessName } = req.body;
+const isText = (v) => typeof v === "string";
 
-  if (!name || !email || !password) {
+exports.register = async (req, res) => {
+  const { email, password, role } = req.body;
+  const name = cleanText(req.body.name);
+  const businessName = cleanText(req.body.businessName);
+
+  if (!isText(req.body.name) || !isText(email) || !isText(password) || !name) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  if (password.length < 6) {
+  if (password.length < 6 || password.length > 100) {
     return res
       .status(400)
-      .json({ message: "Password must be at least 6 characters" });
+      .json({ message: "Password must be between 6 and 100 characters" });
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email) || email.length > 120) {
+    return res.status(400).json({ message: "Enter a valid email address" });
   }
 
   // Only "customer" or "seller" can be chosen; nobody can sign up as anything else
   const isSeller = role === "seller";
-  if (isSeller && !String(businessName || "").trim()) {
+  if (isSeller && !businessName) {
     return res.status(400).json({ message: "Business name is required for sellers" });
   }
 
-  const exists = await User.findOne({ email });
+  const exists = await User.findOne({ email: email.toLowerCase().trim() });
   if (exists) {
     return res.status(409).json({ message: "Email already registered" });
   }
 
   const user = await User.create({
-    name,
+    name: name.slice(0, 80),
     email,
     password,
     role: isSeller ? "seller" : "customer",
-    businessName: isSeller ? String(businessName).trim() : "",
+    businessName: isSeller ? businessName.slice(0, 80) : "",
   });
   res.status(201).json({ token: signToken(user._id), user: userResponse(user) });
 };
@@ -48,11 +56,13 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
+  if (!isText(email) || !isText(password) || !email || !password) {
     return res.status(400).json({ message: "Email and password required" });
   }
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email: email.toLowerCase().trim() }).select(
+    "+password"
+  );
   if (!user || !(await user.matchPassword(password))) {
     return res.status(401).json({ message: "Invalid email or password" });
   }
@@ -66,7 +76,7 @@ exports.getMe = async (req, res) => {
 
 // POST /api/auth/become-seller   body: { businessName }
 exports.becomeSeller = async (req, res) => {
-  const businessName = String(req.body.businessName || "").trim();
+  const businessName = cleanText(req.body.businessName).slice(0, 80);
   if (!businessName) {
     return res.status(400).json({ message: "Business name is required" });
   }
